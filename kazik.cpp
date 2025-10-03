@@ -48,4 +48,5 @@ int main()
 
     cout << "\nGame Over. Final balance: " << balance << "$\n";
     return 0;
+    
 }
