@@ -7,46 +7,68 @@ int main()
 {
     srand(time(NULL));
 
-    int balance = 100;
+    int balance = 1000;
     string pl;
-    string num[3] = { "red", "green", "black" };
+    int price;
+    string winColor;
 
-    cout << "Colors in ruletka: ";
-    for (int i = 0; i < 3; i++)
-        cout << num[i] << " ";
-    cout << "\nBalance: " << balance << "$\nPrice for 1 game: 10$\n";
+    cout << "--------------------------------------\n";
+    cout << "Welcome to the Casino Roulette!\n";
+    cout << "Colors: red, green, black\n";
+    cout << "Your starting balance: " << balance << "$\n";
 
-    do
+    while (true)
     {
-        if (balance < 10) {
-            cout << "Not enough money to play!\n";
+        cout << "\n--------------------------------------\n";
+        cout << "Enter price for 1 roll (0 to stop): ";
+        cin >> price;
+
+        if (price == 0 || balance <= 0)
             break;
+
+        if (price > balance)
+        {
+            cout << "Not enough balance!\n";
+            continue;
         }
 
-        cout << "\nBalance: " << balance << "$" << endl;
-        cout << "Enter your color (type 'stop' to exit): ";
+        cout << "Choose color (red / green / black): ";
         cin >> pl;
 
-        if (pl == "stop") break;
+        int r = rand() % 37;
 
-        balance -= 10; 
+        if (r == 0)
+            winColor = "green";
+        else if (r % 2 == 0)
+            winColor = "red";
+        else
+            winColor = "black";
 
-        int r = rand() % 3; 
-        cout << "Roulette: " << num[r] << endl;
+        cout << "Roulette rolled: " << winColor << "\n";
 
-        if (pl == num[r]) {
-            cout << "You win x2!\n";
-            balance += 20;
+        if (pl == winColor)
+        {
+            if (winColor == "green")
+            {
+                cout << "You WIN! +" << price * 16 << "$\n";
+                balance += price * 16;
+            }
+            else
+            {
+                cout << "You WIN! +" << price * 2 << "$\n";
+                balance += price * 2;
+            }
         }
-        else {
-            cout << "You Lose!!\n";
+        else
+        {
+            cout << "You lose! -" << price << "$\n";
+            balance -= price;
         }
 
-        cout << "Balance: " << balance << "$\n";
+        cout << "Current balance: " << balance << "$\n";
+    }
 
-    } while (true);
-
-    cout << "\nGame Over. Final balance: " << balance << "$\n";
+    cout << "\n--------------------------------------\n";
+    cout << "Game Over. Final balance: " << balance << "$\n";
     return 0;
-    
 }
