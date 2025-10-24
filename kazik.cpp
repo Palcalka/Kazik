@@ -103,11 +103,13 @@ void playGame()
             {
                 cout << "You WIN! +" << price * 16 << "$\n";
                 balance += price * 16;
+                balance -= price;
             }
             else
             {
                 cout << "You WIN! +" << price * 2 << "$\n";
                 balance += price * 2;
+                balance -= price;
             }
         }
         else
